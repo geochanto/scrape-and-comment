@@ -1,7 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-var db = require('../models');
+const db = require('../models');
 
 exports.fetchHeadlines = function (req, res) {
     console.log('fetchHeadlines called!');
