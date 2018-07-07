@@ -1,3 +1,5 @@
+const db = require('../models');
+
 exports.addNote = function (req, res) {
     db.Note.create(req.body)
     .then(function(dbNote) {
