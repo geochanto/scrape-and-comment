@@ -1,6 +1,6 @@
 const db = require('../models');
 
-exports.displayHeadlines = function (req, res) {
+exports.displayAllHeadlines = function (req, res) {
   // Grab every document in the Articles collection
   db.Headline.find({})
     .then(function(dbHeadline) {
@@ -12,3 +12,17 @@ exports.displayHeadlines = function (req, res) {
       res.json(err);
     });
 };
+
+exports.displayOneHeadline = function (req, res) {
+    db.Headline.findOne({ _id: req.params.id })
+    // ..and populate all of the notes associated with it
+    .populate("note")
+    .then(function(dbHeadline) {
+      // If we were able to successfully find an Article with the given id, send it back to the client
+      res.json(dbHeadline);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+  };

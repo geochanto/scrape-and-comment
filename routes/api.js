@@ -3,17 +3,14 @@ const router  = express.Router();
 
 const fetch_controller = require('../controllers/fetch');
 const headline_controllers = require('../controllers/headline');
+const note_controller = require('../controllers/note');
 
 router.get("/fetch", fetch_controller.fetchHeadlines);
 
-router.get("/headlines", headline_controllers.displayHeadlines);
+router.get("/headlines", headline_controllers.displayAllHeadlines);
 
-router.get("/articles/:id", function(req, res) { 
-    
-});
+router.get("/headlines/:id", headline_controllers.displayOneHeadline);
 
-router.post("/articles/:id", function(req, res) { 
-    
-});
+router.post("/headlines/:id", note_controller.addNote);
 
 module.exports = router;
