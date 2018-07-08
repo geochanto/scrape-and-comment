@@ -17,7 +17,9 @@ router.get("/api/headlines/unsaved", headline_controllers.displayUnsavedHeadline
 
 router.get("/api/headlines/:id", headline_controllers.displayOneHeadline);
 
-router.put("/api/headlines/:id", headline_controllers.saveHeadline);
+router.put("/api/headlines/save/:id", headline_controllers.saveHeadline);
+
+router.put("/api/headlines/unsave/:id", headline_controllers.unsaveHeadline);
 
 router.post("/api/headlines/:id", note_controller.addNote);
 

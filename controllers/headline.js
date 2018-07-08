@@ -63,8 +63,6 @@ exports.displayOneHeadline = function (req, res) {
   };
 
   exports.saveHeadline = function (req, res) {
-    console.log("===========");
-    console.log(req.body.saved);
     db.Headline.updateOne(
       { _id: req.params.id },
       { $set: { "saved" : true } }
@@ -72,5 +70,14 @@ exports.displayOneHeadline = function (req, res) {
     .catch(function(err) {
       res.json(err);
     });
+  };
 
+  exports.unsaveHeadline = function (req, res) {
+    db.Headline.updateOne(
+      { _id: req.params.id },
+      { $set: { "saved" : false } }
+    )
+    .catch(function(err) {
+      res.json(err);
+    });
   };

@@ -4,7 +4,7 @@ $(document).ready(function() {
     var articleContainer = $(".article-container");
     // Adding event listeners for dynamically generated buttons for deleting articles,
     // pulling up article notes, saving article notes, and deleting article notes
-    $(document).on("click", ".btn.delete", handleArticleDelete);
+    $(document).on("click", ".btn.delete", handleArticleUnsave);
     $(document).on("click", ".btn.notes", handleArticleNotes);
     $(document).on("click", ".btn.save", handleNoteSave);
     $(document).on("click", ".btn.note-delete", handleNoteDelete);
@@ -115,10 +115,10 @@ $(document).ready(function() {
       $(".note-container").append(notesToRender);
     }
   
-    function handleArticleDelete() {
+    function handleArticleUnsave() {
       // This function handles deleting articles/headlines
       // We grab the id of the article to delete from the card element the delete button sits inside
-      var articleToDelete = $(this)
+      var articleToUnsave = $(this)
         .parents(".card")
         .data();
   
@@ -126,10 +126,12 @@ $(document).ready(function() {
       $(this)
         .parents(".card")
         .remove();
+        articleToUnsave.saved = false;
       // Using a delete method here just to be semantic since we are deleting an article/headline
       $.ajax({
-        method: "DELETE",
-        url: "/api/headlines/" + articleToDelete._id
+        method: "PUT",
+        url: "/api/headlines/unsave/" + articleToUnsave._id,
+        data: articleToUnsave
       }).then(function(data) {
         // If this works out, run initPage again which will re-render our list of saved articles
         if (data.ok) {

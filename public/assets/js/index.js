@@ -102,11 +102,9 @@ $(document).ready(function() {
       // Using a patch method to be semantic since this is an update to an existing record in our collection
       $.ajax({
         method: "PUT",
-        url: "/api/headlines/" + articleToSave._id,
+        url: "/api/headlines/save/" + articleToSave._id,
         data: articleToSave
       }).then(function(data) {
-        console.log('===============')
-        console.log(data);
         // If the data was saved successfully
         if (data.saved) {
           // Run the initPage function again. This will reload the entire list of articles
