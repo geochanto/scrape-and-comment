@@ -14,6 +14,7 @@ const HeadlineSchema = new Schema({
     // `link` is required and of type String
     link: {
         type: String,
+        unique: "This headline already exists in the DB!",
         required: true
     },
 
