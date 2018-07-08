@@ -13,6 +13,32 @@ exports.displayAllHeadlines = function (req, res) {
     });
 };
 
+exports.displaySavedHeadlines = function (req, res) {
+  // Grab every document in the Articles collection
+  db.Headline.find({saved:true})
+    .then(function(dbHeadline) {
+      // If we were able to successfully find Articles, send them back to the client
+      res.json(dbHeadline);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+};
+
+exports.displayUnsavedHeadlines = function (req, res) {
+  // Grab every document in the Articles collection
+  db.Headline.find({saved:false})
+    .then(function(dbHeadline) {
+      // If we were able to successfully find Articles, send them back to the client
+      res.json(dbHeadline);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+};
+
 exports.clearHeadlines = function (req, res) {
   // Grab every document in the Articles collection
   db.Headline.deleteMany({})
@@ -34,4 +60,17 @@ exports.displayOneHeadline = function (req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+  };
+
+  exports.saveHeadline = function (req, res) {
+    console.log("===========");
+    console.log(req.body.saved);
+    db.Headline.updateOne(
+      { _id: req.params.id },
+      { $set: { "saved" : true } }
+    )
+    .catch(function(err) {
+      res.json(err);
+    });
+
   };

@@ -11,7 +11,13 @@ router.get("/api/clear", headline_controllers.clearHeadlines);
 
 router.get("/api/headlines", headline_controllers.displayAllHeadlines);
 
+router.get("/api/headlines/saved", headline_controllers.displaySavedHeadlines);
+
+router.get("/api/headlines/unsaved", headline_controllers.displayUnsavedHeadlines);
+
 router.get("/api/headlines/:id", headline_controllers.displayOneHeadline);
+
+router.put("/api/headlines/:id", headline_controllers.saveHeadline);
 
 router.post("/api/headlines/:id", note_controller.addNote);
 

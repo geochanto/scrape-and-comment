@@ -10,7 +10,7 @@ $(document).ready(function() {
   
     function initPage() {
       // Run an AJAX request for any unsaved headlines
-      $.get("/api/headlines?saved=false").then(function(data) {
+      $.get("/api/headlines/unsaved").then(function(data) {
         articleContainer.empty();
         // If we have headlines, render them to the page
         if (data && data.length) {
@@ -21,6 +21,8 @@ $(document).ready(function() {
         }
       });
     }
+
+    initPage();
   
     function renderArticles(articles) {
       // This function handles appending HTML containing our article data to the page
@@ -103,10 +105,13 @@ $(document).ready(function() {
         url: "/api/headlines/" + articleToSave._id,
         data: articleToSave
       }).then(function(data) {
+        console.log('===============')
+        console.log(data);
         // If the data was saved successfully
         if (data.saved) {
           // Run the initPage function again. This will reload the entire list of articles
           initPage();
+          console.log(data);
         }
       });
     }
