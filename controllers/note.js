@@ -23,8 +23,11 @@ exports.addNote = function (req, res) {
 };
 
 exports.deleteNote = function (req, res) { 
-  console.log(req.body)
-  db.Note.delete({})
+  console.log("---------------------")
+  console.log('req body here!')
+  console.log(req.params.id)
+  console.log("---------------------")
+  db.Note.deleteOne({_id: req.params.id})
   .catch(function(err) {
     // If an error occurred, send it to the client
     res.json(err);

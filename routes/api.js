@@ -25,8 +25,7 @@ router.get("/api/notes/:id", note_controller.displayNotes);
 
 router.post("/api/notes", note_controller.addNote);
 
-router.delete("/api/notes:id", note_controller.deleteNote);
-
+router.delete("/api/notes/:id", note_controller.deleteNote);
 
 
 module.exports = router;

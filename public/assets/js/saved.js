@@ -108,7 +108,7 @@ $(document).ready(function() {
           // Constructs an li element to contain our noteText and a delete button
           currentNote = $("<li class='list-group-item note'>")
             .text(data.notes[i].noteText)
-            .append($("<button class='btn btn-danger note-delete'>x</button>"));
+            .append($("<button noteId=" + data.notes[i]._id + " class='btn btn-danger note-delete'>x</button>"));
           // Store the note id on the delete button for easy access when trying to delete
           currentNote.children("button").data("_id", data.notes[i]._id);
           // Adding our currentNote to the notesToRender array
@@ -206,7 +206,9 @@ $(document).ready(function() {
       // This function handles the deletion of notes
       // First we grab the id of the note we want to delete
       // We stored this data on the delete button when we created it
-      var noteToDelete = $(this).data("_id");
+      console.log($(this));
+      var noteToDelete = $(this).attr("noteId");
+      console.log('note to delete' + noteToDelete)
       // Perform an DELETE request to "/api/notes/" with the id of the note we're deleting as a parameter
       $.ajax({
         url: "/api/notes/" + noteToDelete,
