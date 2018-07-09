@@ -7,7 +7,7 @@ const note_controller = require('../controllers/note');
 
 router.get("/api/fetch", fetch_controller.fetchHeadlines);
 
-router.get("/api/clear", headline_controllers.clearHeadlines);
+router.delete("/api/clear", headline_controllers.clearHeadlines);
 
 router.get("/api/headlines", headline_controllers.displayAllHeadlines);
 

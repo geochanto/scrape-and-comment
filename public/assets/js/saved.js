@@ -94,10 +94,7 @@ $(document).ready(function() {
       // Also setting up a currentNote variable to temporarily store each note
       var notesToRender = [];
       var currentNote;
-      console.log('=========')
-      console.log('data for render notes list')
-      console.log(data);      
-      console.log('=========')
+
       if (!data.notes.length) {
         // If we have no notes, just display a message explaining this
         currentNote = $("<li class='list-group-item'>No notes for this article yet.</li>");
@@ -161,8 +158,6 @@ $(document).ready(function() {
           $("<button headlineId=" + currentArticle._id + " class='btn btn-success save'>Save Note</button>")
         );
 
-        console.log(data);
-
         // Adding the formatted HTML to the note modal
         bootbox.dialog({
           message: modalText,
@@ -192,8 +187,6 @@ $(document).ready(function() {
       // and post it to the "/api/notes" route and send the formatted noteData as well
       if (newNote) {
         noteData = { _headlineId: $(this).attr("headlineId"), noteText: newNote };
-        console.log($(this));
-        console.log(noteData);
 
         $.post("/api/notes", noteData).then(function() {
           // When complete, close the modal
@@ -206,21 +199,25 @@ $(document).ready(function() {
       // This function handles the deletion of notes
       // First we grab the id of the note we want to delete
       // We stored this data on the delete button when we created it
-      console.log($(this));
       var noteToDelete = $(this).attr("noteId");
-      console.log('note to delete' + noteToDelete)
       // Perform an DELETE request to "/api/notes/" with the id of the note we're deleting as a parameter
       $.ajax({
         url: "/api/notes/" + noteToDelete,
         method: "DELETE"
       }).then(function() {
+        console.log("hello? why isn't this working? Whatevs, I'll just run it synchronously.");
         // When done, hide the modal
         bootbox.hideAll();
       });
+
+      bootbox.hideAll();
     }
   
     function handleArticleClear() {
-      $.get("api/clear")
+      $.ajax({
+        url: "/api/clear",
+        method: "DELETE"
+      })
         .then(function() {
           articleContainer.empty();
           initPage();

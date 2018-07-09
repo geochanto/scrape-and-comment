@@ -1,10 +1,6 @@
 const db = require('../models');
 
 exports.addNote = function (req, res) {
-  console.log('addnote start')
-  console.log(req.body);  
-  console.log('addnote end')
-
   db.Note.create(req.body)
     // .then(function(dbNote) {
     //   // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
@@ -23,10 +19,6 @@ exports.addNote = function (req, res) {
 };
 
 exports.deleteNote = function (req, res) { 
-  console.log("---------------------")
-  console.log('req body here!')
-  console.log(req.params.id)
-  console.log("---------------------")
   db.Note.deleteOne({_id: req.params.id})
   .catch(function(err) {
     // If an error occurred, send it to the client
@@ -35,9 +27,6 @@ exports.deleteNote = function (req, res) {
 };
 
 exports.displayNotes = function (req, res) { 
-  console.log('=================')
-  console.log(req.params.id);
-  console.log('=================')
   db.Note.find({ _headlineId: req.params.id })
   .then(function(dbNote) {
     // If we were able to successfully find an Article with the given id, send it back to the client
