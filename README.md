@@ -1,4 +1,4 @@
-# Scrape and Commet
+# Scrape and Comment
 This webapp lets users scrape articles from [Reuters technology news page](https://www.reuters.com/news/archive/technologyNews).
 
 Articles can be saved (and unsaved), and notes can be added for saved articles.
