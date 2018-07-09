@@ -94,6 +94,10 @@ $(document).ready(function() {
       // Also setting up a currentNote variable to temporarily store each note
       var notesToRender = [];
       var currentNote;
+      console.log('=========')
+      console.log('data for render notes list')
+      console.log(data);      
+      console.log('=========')
       if (!data.notes.length) {
         // If we have no notes, just display a message explaining this
         currentNote = $("<li class='list-group-item'>No notes for this article yet.</li>");
@@ -145,6 +149,7 @@ $(document).ready(function() {
       var currentArticle = $(this)
         .parents(".card")
         .data();
+
       // Grab any notes with this headline/article id
       $.get("/api/notes/" + currentArticle._id).then(function(data) {
         // Constructing our initial HTML to add to the notes modal
@@ -153,15 +158,18 @@ $(document).ready(function() {
           $("<hr>"),
           $("<ul class='list-group note-container'>"),
           $("<textarea placeholder='New Note' rows='4' cols='60'>"),
-          $("<button class='btn btn-success save'>Save Note</button>")
+          $("<button headlineId=" + currentArticle._id + " class='btn btn-success save'>Save Note</button>")
         );
+
+        console.log(data);
+
         // Adding the formatted HTML to the note modal
         bootbox.dialog({
           message: modalText,
           closeButton: true
         });
         var noteData = {
-          _id: currentArticle._id,
+          _headlineId: currentArticle._id,
           notes: data || []
         };
         // Adding some information about the article and article notes to the save button for easy access
@@ -183,7 +191,10 @@ $(document).ready(function() {
       // If we actually have data typed into the note input field, format it
       // and post it to the "/api/notes" route and send the formatted noteData as well
       if (newNote) {
-        noteData = { _headlineId: $(this).data("article")._id, noteText: newNote };
+        noteData = { _headlineId: $(this).attr("headlineId"), noteText: newNote };
+        console.log($(this));
+        console.log(noteData);
+
         $.post("/api/notes", noteData).then(function() {
           // When complete, close the modal
           bootbox.hideAll();

@@ -21,6 +21,12 @@ router.put("/api/headlines/save/:id", headline_controllers.saveHeadline);
 
 router.put("/api/headlines/unsave/:id", headline_controllers.unsaveHeadline);
 
-router.post("/api/headlines/:id", note_controller.addNote);
+router.get("/api/notes/:id", note_controller.displayNotes);
+
+router.post("/api/notes", note_controller.addNote);
+
+router.delete("/api/notes:id", note_controller.deleteNote);
+
+
 
 module.exports = router;
